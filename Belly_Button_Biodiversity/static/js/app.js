@@ -17,8 +17,8 @@ function buildMetadata(sample) {
     
     Object.entries(sample).forEach(function([key,value]){
       console.log(key,value);
-      var row = sampleData.append("ul");
-      row.text(`${key}:${value}`);
+      var row = sampleData.append("h6");
+      row.text(`${key}: ${value}`);
     });
   });
  
@@ -36,12 +36,13 @@ function buildCharts(sample) {
     var topSampval = sample.sample_values.slice(0,9);
     var topOtuid = sample.otu_ids.slice(0,9);
     var topOtulabel = sample.otu_labels.slice(0,9);
-    
+    console.log(topOtulabel);
     // Pie Chart
     var dataPie = [{
-      values: topOtuid,
-      labels: topOtulabel,
-      hoverinfo: topSampval,
+      values: topSampval,
+      labels: topOtuid,
+      hovertext: topOtulabel,
+      hoverinfo: "hovertext",
       type: 'pie'
     }];
     
@@ -66,9 +67,7 @@ function buildCharts(sample) {
       mode: 'markers',
       marker: {
         color: otuId,
-        size: sampVal,
-        sizeref: .5,
-        sizemode: 'area'
+        size: sampVal
       }
     };
     
